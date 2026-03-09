@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chính Sách Bảo Mật – App Đặt Lịch Khám</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --teal: #0d6e6e;
+      --teal-light: #e4f4f4;
+      --teal-mid: #1a9090;
+      --accent: #f0a500;
+      --text: #1a1a2e;
+      --muted: #5a6472;
+      --bg: #f8fbfb;
+      --white: #ffffff;
+      --border: #d4e8e8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--teal);
+      color: var(--white);
+      padding: 60px 40px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 10%;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    .header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #cff4f4;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+    header p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+    }
+    .meta {
+      margin-top: 28px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+    }
+    .meta-item strong {
+      color: rgba(255,255,255,0.95);
+      display: block;
+      font-size: 14px;
+    }
+
+    /* LAYOUT */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+
+    /* TOC */
+    .toc {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-bottom: 52px;
+    }
+    .toc h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 15px;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+    }
+    .toc ol {
+      padding-left: 20px;
+    }
+    .toc li {
+      margin: 6px 0;
+    }
+    .toc a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14.5px;
+      transition: color 0.2s;
+    }
+    .toc a:hover { color: var(--teal); }
+
+    /* SECTIONS */
+    section {
+      margin-bottom: 52px;
+    }
+    section h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--teal-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .num {
+      background: var(--teal);
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    section p {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 14px;
+    }
+    section ul {
+      padding-left: 22px;
+      margin: 12px 0;
+    }
+    section ul li {
+      font-size: 15px;
+      color: #333;
+      margin: 8px 0;
+      padding-left: 4px;
+    }
+    section ul li::marker {
+      color: var(--teal-mid);
+    }
+
+    /* HIGHLIGHT BOX */
+    .highlight {
+      background: var(--teal-light);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 18px 0;
+      border-left: 3px solid var(--teal-mid);
+    }
+    .highlight p {
+      margin: 0;
+      font-size: 14.5px;
+      color: #1a4040;
+    }
+
+    /* WARNING BOX */
+    .warning {
+      background: #fff8ec;
+      border-radius: 8px;
+      padding: 18px 24px;
+      margin: 18px 0;
+      border-left: 3px solid var(--accent);
+    }
+    .warning p {
+      margin: 0;
+      font-size: 14.5px;
+      color: #5a3a00;
+    }
+
+    /* DATA TABLE */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 14px;
+    }
+    .data-table th {
+      background: var(--teal);
+      color: white;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 500;
+    }
+    .data-table th:first-child { border-radius: 6px 0 0 0; }
+    .data-table th:last-child { border-radius: 0 6px 0 0; }
+    .data-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      color: #333;
+      vertical-align: top;
+    }
+    .data-table tr:nth-child(even) td { background: var(--teal-light); }
+
+    /* CONTACT */
+    .contact-box {
+      background: var(--teal);
+      color: white;
+      border-radius: 12px;
+      padding: 36px 40px;
+      margin-top: 12px;
+    }
+    .contact-box h3 {
+      font-family: 'Merriweather', serif;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .contact-box p {
+      color: rgba(255,255,255,0.85) !important;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    .contact-box a {
+      color: #9ef0f0;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 40px 24px 36px; }
+      .container { padding: 40px 20px 60px; }
+      .toc { padding: 20px; }
+      .contact-box { padding: 28px 24px; }
+      .data-table { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="badge">Chính sách bảo mật</div>
+    <h1>Bảo vệ thông tin cá nhân của bạn</h1>
+    <p>Chúng tôi cam kết minh bạch trong việc thu thập, sử dụng và bảo vệ dữ liệu của người dùng.</p>
+    <div class="meta">
+      <div class="meta-item">
+        <strong>Ngày hiệu lực</strong>
+        09 / 03 / 2026
+      </div>
+      <div class="meta-item">
+        <strong>Phiên bản</strong>
+        1.0
+      </div>
+      <div class="meta-item">
+        <strong>Áp dụng cho</strong>
+        Ứng dụng đặt lịch khám
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <nav class="toc">
+    <h2>Mục lục</h2>
+    <ol>
+      <li><a href="#s1">Thông tin chúng tôi thu thập</a></li>
+      <li><a href="#s2">Mục đích sử dụng dữ liệu</a></li>
+      <li><a href="#s3">Chia sẻ thông tin với bên thứ ba</a></li>
+      <li><a href="#s4">Quyền truy cập Camera / Microphone</a></li>
+      <li><a href="#s5">Lưu trữ và bảo mật dữ liệu</a></li>
+      <li><a href="#s6">Quyền của người dùng</a></li>
+      <li><a href="#s7">Chính sách đối với trẻ em</a></li>
+      <li><a href="#s8">Thay đổi chính sách</a></li>
+      <li><a href="#s9">Liên hệ</a></li>
+    </ol>
+  </nav>
+
+  <section id="s1">
+    <h2><span class="num">1</span> Thông tin chúng tôi thu thập</h2>
+    <p>Khi bạn sử dụng ứng dụng đặt lịch khám, chúng tôi có thể thu thập các loại thông tin sau:</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Loại dữ liệu</th>
+          <th>Ví dụ cụ thể</th>
+          <th>Bắt buộc?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Thông tin cá nhân</td>
+          <td>Họ tên, ngày sinh, giới tính</td>
+          <td>Có</td>
+        </tr>
+        <tr>
+          <td>Thông tin liên lạc</td>
+          <td>Số điện thoại, địa chỉ email</td>
+          <td>Có</td>
+        </tr>
+        <tr>
+          <td>Thông tin y tế cơ bản</td>
+          <td>Triệu chứng, lịch sử khám bệnh</td>
+          <td>Tùy chọn</td>
+        </tr>
+        <tr>
+          <td>Dữ liệu thiết bị</td>
+          <td>Loại thiết bị, hệ điều hành, ID thiết bị</td>
+          <td>Tự động</td>
+        </tr>
+        <tr>
+          <td>Camera / Microphone</td>
+          <td>Hình ảnh, video, âm thanh (nếu được cấp phép)</td>
+          <td>Theo yêu cầu</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight">
+      <p>📋 Chúng tôi chỉ thu thập thông tin cần thiết để cung cấp dịch vụ đặt lịch khám. Bạn luôn có quyền từ chối cung cấp thông tin không bắt buộc.</p>
+    </div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">2</span> Mục đích sử dụng dữ liệu</h2>
+    <p>Thông tin thu thập được sử dụng cho các mục đích sau:</p>
+    <ul>
+      <li>Tạo và quản lý tài khoản người dùng</li>
+      <li>Xử lý và xác nhận lịch hẹn khám bệnh</li>
+      <li>Gửi thông báo nhắc lịch hẹn qua SMS hoặc email</li>
+      <li>Kết nối người dùng với cơ sở y tế và bác sĩ</li>
+      <li>Cải thiện chất lượng ứng dụng và trải nghiệm người dùng</li>
+      <li>Hỗ trợ khách hàng và giải quyết sự cố kỹ thuật</li>
+      <li>Tuân thủ các yêu cầu pháp lý</li>
+    </ul>
+    <div class="warning">
+      <p>⚠️ Chúng tôi <strong>không</strong> sử dụng dữ liệu cá nhân của bạn cho mục đích quảng cáo hoặc bán cho bên thứ ba.</p>
+    </div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">3</span> Chia sẻ thông tin với bên thứ ba</h2>
+    <p>Chúng tôi có thể chia sẻ thông tin của bạn trong các trường hợp giới hạn sau:</p>
+    <ul>
+      <li><strong>Cơ sở y tế / Bác sĩ:</strong> Thông tin cần thiết để xác nhận và thực hiện lịch hẹn.</li>
+      <li><strong>Nhà cung cấp dịch vụ kỹ thuật:</strong> Các đối tác hỗ trợ vận hành hạ tầng (máy chủ, SMS, email) có ký hợp đồng bảo mật với chúng tôi.</li>
+      <li><strong>Cơ quan nhà nước:</strong> Khi có yêu cầu pháp lý hợp lệ theo quy định pháp luật Việt Nam.</li>
+    </ul>
+    <p>Ngoài các trường hợp trên, chúng tôi không tiết lộ thông tin cá nhân của bạn cho bất kỳ bên nào khác mà không có sự đồng ý rõ ràng của bạn.</p>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">4</span> Quyền truy cập Camera / Microphone</h2>
+    <p>Ứng dụng có thể yêu cầu quyền truy cập vào camera và microphone của thiết bị. Các quyền này được sử dụng với mục đích:</p>
+    <ul>
+      <li><strong>Camera:</strong> Chụp ảnh hồ sơ người dùng, tải lên kết quả xét nghiệm hoặc đơn thuốc, hỗ trợ tư vấn từ xa (telemedicine).</li>
+      <li><strong>Microphone:</strong> Hỗ trợ cuộc gọi video / âm thanh khi tư vấn trực tuyến với bác sĩ.</li>
+    </ul>
+    <div class="highlight">
+      <p>🔒 Ứng dụng <strong>chỉ kích hoạt</strong> camera hoặc microphone khi bạn chủ động sử dụng tính năng liên quan. Dữ liệu này không được ghi lại hay lưu trữ khi phiên sử dụng kết thúc, trừ khi bạn chủ động lưu tệp.</p>
+    </div>
+    <p>Bạn có thể thu hồi các quyền này bất cứ lúc nào trong phần <strong>Cài đặt → Ứng dụng</strong> trên thiết bị Android của bạn.</p>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">5</span> Lưu trữ và bảo mật dữ liệu</h2>
+    <p>Chúng tôi áp dụng các biện pháp bảo mật kỹ thuật và tổ chức để bảo vệ dữ liệu của bạn:</p>
+    <ul>
+      <li>Mã hóa dữ liệu khi truyền tải (TLS/HTTPS)</li>
+      <li>Mã hóa dữ liệu lưu trữ trên máy chủ</li>
+      <li>Kiểm soát truy cập nghiêm ngặt đối với nhân viên nội bộ</li>
+      <li>Kiểm tra bảo mật định kỳ</li>
+    </ul>
+    <p>Dữ liệu cá nhân của bạn sẽ được lưu trữ trong thời gian bạn sử dụng ứng dụng và tối đa <strong>[số năm] năm</strong> sau khi tài khoản bị xóa, trừ khi luật pháp yêu cầu giữ lại lâu hơn.</p>
+    <p>Dữ liệu được lưu trữ trên máy chủ đặt tại <strong>TP HCM, Việt Nam</strong>.</p>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">6</span> Quyền của người dùng</h2>
+    <p>Bạn có các quyền sau đối với dữ liệu cá nhân của mình:</p>
+    <ul>
+      <li><strong>Quyền truy cập:</strong> Yêu cầu xem thông tin chúng tôi đang lưu về bạn.</li>
+      <li><strong>Quyền chỉnh sửa:</strong> Cập nhật thông tin không chính xác hoặc lỗi thời.</li>
+      <li><strong>Quyền xóa:</strong> Yêu cầu xóa tài khoản và toàn bộ dữ liệu liên quan.</li>
+      <li><strong>Quyền từ chối:</strong> Từ chối nhận thông báo marketing (nếu có).</li>
+      <li><strong>Quyền di chuyển dữ liệu:</strong> Yêu cầu xuất dữ liệu cá nhân ở định dạng có thể đọc được.</li>
+    </ul>
+    <p>Để thực hiện bất kỳ quyền nào ở trên, vui lòng liên hệ chúng tôi qua thông tin ở mục 9.</p>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">7</span> Chính sách đối với trẻ em</h2>
+    <div class="warning">
+      <p>⚠️ Ứng dụng này <strong>không dành cho trẻ em dưới 13 tuổi</strong>. Chúng tôi không cố ý thu thập thông tin cá nhân của trẻ em dưới 13 tuổi.</p>
+    </div>
+    <p>Nếu bạn là phụ huynh hoặc người giám hộ và phát hiện con bạn đã cung cấp thông tin cá nhân cho chúng tôi, vui lòng liên hệ ngay để chúng tôi xóa thông tin đó.</p>
+    <p>Đối với người dùng từ 13–18 tuổi, việc đăng ký tài khoản cần có sự đồng ý của cha mẹ hoặc người giám hộ hợp pháp.</p>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">8</span> Thay đổi chính sách bảo mật</h2>
+    <p>Chúng tôi có thể cập nhật Chính sách Bảo mật này theo thời gian để phản ánh thay đổi trong hoạt động kinh doanh hoặc yêu cầu pháp lý.</p>
+    <p>Khi có thay đổi đáng kể, chúng tôi sẽ thông báo cho bạn qua:</p>
+    <ul>
+      <li>Thông báo trong ứng dụng</li>
+      <li>Email (nếu bạn đã cung cấp địa chỉ email)</li>
+    </ul>
+    <p>Ngày hiệu lực của phiên bản mới nhất luôn được ghi rõ ở đầu tài liệu này. Việc tiếp tục sử dụng ứng dụng sau khi thay đổi có hiệu lực được coi là bạn đã đồng ý với phiên bản mới.</p>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">9</span> Liên hệ</h2>
+    <div class="contact-box">
+      <h3>Chúng tôi luôn sẵn sàng hỗ trợ</h3>
+      <p>Nếu bạn có câu hỏi hoặc yêu cầu liên quan đến Chính sách Bảo mật này, hãy liên hệ với chúng tôi:</p>
+      <p>🏢 <strong>Tên công ty:</strong> Công ty TNHH TM DV SX Vũ Phong</p>
+      <p>📧 <strong>Email:</strong> <a href="mailto:sixossoft@gmail.com">sixossoft@gmail.com</a></p>
+      <p>📞 <strong>Điện thoại:</strong> 0364 956 007</p>
+      <p>🏠 <strong>Địa chỉ:</strong> 78/14 Nguyễn Thị Tú - P. Bình Hưng Hòa B - Q. Bình Tân - Tp. HCM</p>
+      <p style="margin-top:16px; font-size:13px; color:rgba(255,255,255,0.6);">Chúng tôi cam kết phản hồi trong vòng 7 ngày làm việc.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 Công ty TNHH TM DV SX Vũ Phong. Tài liệu này được tạo cho mục đích tuân thủ Google Play Store.</p>
+</footer>
+
+</body>
+</html>
